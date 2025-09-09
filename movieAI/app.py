@@ -10,28 +10,17 @@ from pathlib import Path
 @st.cache_data
 def load_csv(filename):
     """Load a CSV file located next to app.py"""
-    # Folder where this app.py resides
-    app_folder = Path(__file__).parent.resolve()
+    app_folder = Path(__file__).parent.resolve()  # folder where app.py resides
     csv_path = app_folder / filename
     if not csv_path.exists():
         st.error(f"CSV file not found: {csv_path}")
-        return pd.DataFrame()  # return empty dataframe if file missing
+        return pd.DataFrame()  # empty dataframe if missing
     return pd.read_csv(csv_path)
 
 # -------------------------------
 # Load main CSV
 # -------------------------------
-def main(df):
-    """Content-based recommendation tab"""
-    st.write("Content-based recommendations")
-    
-    # Example usage
-    if df.empty:
-        st.warning("No data available")
-        return
-    
-    # Replace this with your actual logic
-    st.dataframe(df.head())
+df_main = load_csv("imdb_top_1000.csv")
 
 # Stop execution if CSV not found
 if df_main.empty:
@@ -57,4 +46,3 @@ with tab2:
 with tab3:
     st.header("Hybrid Recommendations")
     hybrid.main(df_main)
-

@@ -7,8 +7,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 # Load dataset
 @st.cache_data
 def load_data():
-    ratings = pd.read_csv("user_movie_rating.csv")
-    movies = pd.read_csv("imdb_top_1000.csv")
+    ratings = pd.read_csv("data/user_movie_rating.csv")
+    movies = pd.read_csv("data/imdb_top_1000.csv")
     return ratings, movies
 
 # Build user-item matrix
@@ -65,3 +65,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

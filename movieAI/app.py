@@ -21,7 +21,17 @@ def load_csv(filename):
 # -------------------------------
 # Load main CSV
 # -------------------------------
-df_main = load_csv("imdb_top_1000.csv")
+def main(df):
+    """Content-based recommendation tab"""
+    st.write("Content-based recommendations")
+    
+    # Example usage
+    if df.empty:
+        st.warning("No data available")
+        return
+    
+    # Replace this with your actual logic
+    st.dataframe(df.head())
 
 # Stop execution if CSV not found
 if df_main.empty:
@@ -47,3 +57,4 @@ with tab2:
 with tab3:
     st.header("Hybrid Recommendations")
     hybrid.main(df_main)
+

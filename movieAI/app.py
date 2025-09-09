@@ -1,20 +1,45 @@
+# app.py
 import streamlit as st
 from recommender import content, collaborative, hybrid
+import pandas as pd
+import os
+from pathlib import Path
 
-st.set_page_config(page_title="MovieAI Recommender", layout="centered")
+# -------------------------------
+# Helper function to load CSVs
+# -------------------------------
+@st.cache_data
+def load_csv(filename):
+    """Load a CSV file located next to app.py"""
+    app_folder = Path(os.getcwd())  # assumes Streamlit launched from movieAI folder
+    csv_path = app_folder / filename
+    if not csv_path.exists():
+        st.error(f"CSV file not found: {csv_path}")
+        return pd.DataFrame()  # return empty dataframe if file missing
+    return pd.read_csv(csv_path)
 
-st.title("🎬 MovieAI Recommender System")
-st.markdown("Choose a recommendation method from the sidebar to get started.")
+# Load data
+df_main = load_csv("imdb_top_1000.csv")
+# df_additional = load_csv("imdb_top_1000_additional.csv")  # uncomment if you have a second CSV
 
-# Sidebar navigation
-menu = ["Content-Based", "Collaborative", "Hybrid"]
-choice = st.sidebar.radio("Select a Recommender:", menu)
+# -------------------------------
+# Main App
+# -------------------------------
+st.title("Movie Recommender App 🎬")
 
-if choice == "Content-Based":
-    content.main()
+st.write("Welcome to the Movie AI Recommender!")
 
-elif choice == "Collaborative":
-    collaborative.main()
+# Tabs for different recommendation types
+tab1, tab2, tab3 = st.tabs(["Content-Based", "Collaborative", "Hybrid"])
 
-elif choice == "Hybrid":
-    hybrid.main()
+with tab1:
+    st.header("Content-Based Recommendations")
+    content.main(df_main)  # pass dataframe to content module
+
+with tab2:
+    st.header("Collaborative Filtering")
+    collaborative.main(df_main)
+
+with tab3:
+    st.header("Hybrid Recommendations")
+    hybrid.main(df_main)

@@ -1,5 +1,7 @@
 import streamlit as st
-from recommender import content, collaborative, hybrid
+from . import content
+from . import collaborative
+from . import hybrid
 
 st.set_page_config(page_title="MovieAI Recommender", layout="centered")
 
@@ -18,3 +20,4 @@ elif choice == "Collaborative":
 
 elif choice == "Hybrid":
     hybrid.main()
+

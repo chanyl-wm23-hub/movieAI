@@ -9,16 +9,12 @@ from sklearn.preprocessing import MultiLabelBinarizer
 # -----------------------
 @st.cache_data
 def load_data():
-    df = pd.read_csv("imdb_top_1000.csv")
-
-    # Handle missing values
-    df.fillna('', inplace=True)
-
-    # Make sure Genre is clean
-    df['Genre'] = df['Genre'].apply(lambda x: x.split(',') if isinstance(x, str) else [])
-    
+    # Get the folder of this file (content.py)
+    folder = os.path.dirname(os.path.abspath(__file__))
+    # Build path to CSV file next to app.py (one level up)
+    csv_path = os.path.join(folder, "..", "imdb_top_1000.csv")
+    df = pd.read_csv(csv_path)
     return df
-
 # -----------------------
 # Build KNN Model
 # -----------------------
@@ -82,3 +78,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

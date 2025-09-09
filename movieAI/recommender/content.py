@@ -39,10 +39,11 @@ def recommend_movies(df, selected_movie, selected_genre, n_results):
 # -------------------------------
 # Main UI
 # -------------------------------
-def main():
+def main(df=None):
     st.title("Content-Based Movie Recommender 🎬")
 
-    df = load_data()
+    if df is None:
+        df = load_data()
     if df.empty:
         return
 
@@ -90,3 +91,4 @@ def main():
 # -------------------------------
 if __name__ == "__main__":
     main()
+

@@ -9,7 +9,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 # -----------------------
 @st.cache_data
 def load_data():
-    df = pd.read_csv("imdb_top_1000.csv")
+    df = pd.read_csv("data/imdb_top_1000.csv")
 
     # Handle missing values
     df.fillna('', inplace=True)
@@ -82,3 +82,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
